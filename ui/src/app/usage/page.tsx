@@ -558,7 +558,7 @@ export default function UsagePage() {
                                                     <TableCell className="text-right font-medium">
                                                         {organizationPricing?.price_per_second_usd && run.charge_usd !== undefined && run.charge_usd !== null
                                                             ? `$${run.charge_usd.toFixed(2)}`
-                                                            : run.callagent_token_usage.toLocaleString()
+                                                            : run.dograh_token_usage.toLocaleString()
                                                         }
                                                     </TableCell>
                                                     <TableCell>
@@ -580,7 +580,7 @@ export default function UsagePage() {
                                     <div className="mt-4 p-3 bg-muted rounded-md">
                                         <p className="text-sm text-muted-foreground">
                                             Total for filtered period: <span className="font-semibold text-foreground">
-                                                {usageHistory.total_callagent_tokens.toLocaleString()} CallAgent Tokens
+                                                {usageHistory.total_dograh_tokens.toLocaleString()} CallAgent Tokens
                                             </span>
                                             {' • '}
                                             <span className="font-semibold text-foreground">

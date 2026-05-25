@@ -130,7 +130,7 @@ export function EmbedDialog({
                             callToActionText,
                             size: "medium",
                             autoStart: false,
-                            containerId: embedMode === "inline" ? "callagent-inline-container" : undefined,
+                            containerId: embedMode === "inline" ? "dograh-inline-container" : undefined,
                         },
                         usage_limit: null,
                         expires_in_days: null,
@@ -437,8 +437,8 @@ export function EmbedDialog({
                                                 <ul className="text-sm space-y-2 text-muted-foreground">
                                                     <li>• Add the embed script tag to your page (see below).</li>
                                                     <li>• The widget renders no UI — render your own buttons.</li>
-                                                    <li>• Call <code className="text-xs">window.CallAgentWidget.start()</code> to begin a call.</li>
-                                                    <li>• Call <code className="text-xs">window.CallAgentWidget.end()</code> to end it.</li>
+                                                    <li>• Call <code className="text-xs">window.DograhWidget.start()</code> to begin a call.</li>
+                                                    <li>• Call <code className="text-xs">window.DograhWidget.end()</code> to end it.</li>
                                                     <li>• Subscribe to <code className="text-xs">onCallStart</code>, <code className="text-xs">onCallEnd</code>, <code className="text-xs">onStatusChange</code>, <code className="text-xs">onError</code> to drive your UI.</li>
                                                     <li>• <code className="text-xs">start()</code> must run inside a user-gesture handler (click) so the browser grants microphone access.</li>
                                                 </ul>
@@ -453,16 +453,16 @@ export function EmbedDialog({
                                                     <code className="text-blue-800 dark:text-blue-200">{`// Vanilla JS — keep your own state, render however you want
 let callStatus = 'idle';
 
-window.CallAgentWidget?.onStatusChange((status) => {
+window.DograhWidget?.onStatusChange((status) => {
   callStatus = status;
   // ...trigger your render here (re-paint DOM, dispatch event, etc.)
 });
 
 document.getElementById('talk-btn').addEventListener('click', () => {
   if (callStatus === 'connected' || callStatus === 'connecting') {
-    window.CallAgentWidget.end();
+    window.DograhWidget.end();
   } else {
-    window.CallAgentWidget.start();
+    window.DograhWidget.start();
   }
 });`}</code>
                                                 </pre>
@@ -472,12 +472,12 @@ document.getElementById('talk-btn').addEventListener('click', () => {
   const [status, setStatus] = useState('idle');
 
   useEffect(() => {
-    window.CallAgentWidget?.onStatusChange(setStatus);
+    window.DograhWidget?.onStatusChange(setStatus);
   }, []);
 
   const isLive = status === 'connected' || status === 'connecting';
   return (
-    <button onClick={() => isLive ? window.CallAgentWidget.end() : window.CallAgentWidget.start()}>
+    <button onClick={() => isLive ? window.DograhWidget.end() : window.DograhWidget.start()}>
       {/* render anything you want from \`status\` */}
     </button>
   );
@@ -493,11 +493,11 @@ document.getElementById('talk-btn').addEventListener('click', () => {
                                             <div className="rounded-lg bg-muted/50 p-4">
                                                 <h4 className="font-medium mb-2">Integration Instructions</h4>
                                                 <ul className="text-sm space-y-2 text-muted-foreground">
-                                                    <li>• Add a div with id=&quot;callagent-inline-container&quot; where you want the widget</li>
+                                                    <li>• Add a div with id=&quot;dograh-inline-container&quot; where you want the widget</li>
                                                     <li>• The widget will render inside this container</li>
                                                     <li>• You have full control over the container&apos;s styling</li>
-                                                    <li>• Call window.CallAgentWidget.start() to begin the call</li>
-                                                    <li>• Call window.CallAgentWidget.end() to end the call</li>
+                                                    <li>• Call window.DograhWidget.start() to begin the call</li>
+                                                    <li>• Call window.DograhWidget.end() to end the call</li>
                                                 </ul>
                                             </div>
 
@@ -509,10 +509,10 @@ document.getElementById('talk-btn').addEventListener('click', () => {
 
   useEffect(() => {
     // Widget will auto-initialize when script loads
-    window.CallAgentWidget?.onCallStart(() => {
+    window.DograhWidget?.onCallStart(() => {
       setIsCallActive(true);
     });
-    window.CallAgentWidget?.onCallEnd(() => {
+    window.DograhWidget?.onCallEnd(() => {
       setIsCallActive(false);
     });
   }, []);
@@ -520,11 +520,11 @@ document.getElementById('talk-btn').addEventListener('click', () => {
   return (
     <div className="my-8">
       <h2>Talk to Our Agent</h2>
-      <div id="callagent-inline-container" className="min-h-[400px]">
+      <div id="dograh-inline-container" className="min-h-[400px]">
         {/* Widget renders here */}
       </div>
       <button
-        onClick={() => window.CallAgentWidget?.start()}
+        onClick={() => window.DograhWidget?.start()}
         disabled={isCallActive}
       >
         Start Call
