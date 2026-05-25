@@ -412,9 +412,9 @@ export default function UsagePage() {
                 {/* MPS Credits Card */}
                 <Card className="mb-6">
                     <CardHeader>
-                        <CardTitle>Dograh Model Credits</CardTitle>
+                        <CardTitle>CallAgent Model Credits</CardTitle>
                         <CardDescription>
-                            These track usage of Dograh models using Dograh Service Keys.
+                            These track usage of CallAgent models using CallAgent Service Keys.
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -444,7 +444,7 @@ export default function UsagePage() {
                                 )}
                             </div>
                         ) : (
-                            <p className="text-muted-foreground">No Dograh service keys configured. Set up a service key in your model configuration to see usage.</p>
+                            <p className="text-muted-foreground">No CallAgent service keys configured. Set up a service key in your model configuration to see usage.</p>
                         )}
                     </CardContent>
                 </Card>
@@ -558,7 +558,7 @@ export default function UsagePage() {
                                                     <TableCell className="text-right font-medium">
                                                         {organizationPricing?.price_per_second_usd && run.charge_usd !== undefined && run.charge_usd !== null
                                                             ? `$${run.charge_usd.toFixed(2)}`
-                                                            : run.dograh_token_usage.toLocaleString()
+                                                            : run.callagent_token_usage.toLocaleString()
                                                         }
                                                     </TableCell>
                                                     <TableCell>
@@ -580,7 +580,7 @@ export default function UsagePage() {
                                     <div className="mt-4 p-3 bg-muted rounded-md">
                                         <p className="text-sm text-muted-foreground">
                                             Total for filtered period: <span className="font-semibold text-foreground">
-                                                {usageHistory.total_dograh_tokens.toLocaleString()} Dograh Tokens
+                                                {usageHistory.total_callagent_tokens.toLocaleString()} CallAgent Tokens
                                             </span>
                                             {' • '}
                                             <span className="font-semibold text-foreground">

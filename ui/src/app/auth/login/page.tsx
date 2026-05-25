@@ -1,5 +1,6 @@
 "use client";
 
+import { Headset } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -46,46 +47,57 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Sign in</CardTitle>
-          <CardDescription>Enter your email and password to continue</CardDescription>
+    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-slate-50 to-slate-200 p-4 dark:from-slate-950 dark:to-slate-900">
+      <Card className="w-full max-w-md border-none shadow-2xl">
+        <CardHeader className="space-y-4 text-center pb-8">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+            <Headset className="h-6 w-6 text-primary" />
+          </div>
+          <div className="space-y-2">
+            <CardTitle className="text-3xl font-bold tracking-tight">Sign in to CallAgent</CardTitle>
+            <CardDescription className="text-base">
+              Enter your credentials to access your dashboard
+            </CardDescription>
+          </div>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="you@example.com"
+                placeholder="name@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                className="h-11"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <div className="flex items-center justify-between">
+                <Label htmlFor="password">Password</Label>
+              </div>
               <Input
                 id="password"
                 type="password"
-                placeholder="Enter your password"
+                placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                className="h-11"
               />
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button type="submit" className="w-full h-11 text-base font-semibold" disabled={loading}>
               {loading ? "Signing in..." : "Sign in"}
             </Button>
           </form>
-          <p className="mt-4 text-center text-sm text-muted-foreground">
+          <div className="mt-8 text-center text-sm text-muted-foreground">
             Don&apos;t have an account?{" "}
-            <Link href="/auth/signup" className="text-primary underline-offset-4 hover:underline">
-              Sign up
+            <Link href="/auth/signup" className="font-semibold text-primary underline-offset-4 hover:underline">
+              Create one now
             </Link>
-          </p>
+          </div>
         </CardContent>
       </Card>
     </div>

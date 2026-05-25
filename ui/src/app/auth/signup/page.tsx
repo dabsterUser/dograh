@@ -1,5 +1,6 @@
 "use client";
 
+import { Headset } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -58,23 +59,31 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Create an account</CardTitle>
-          <CardDescription>Enter your details to get started</CardDescription>
+    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-slate-50 to-slate-200 p-4 dark:from-slate-950 dark:to-slate-900">
+      <Card className="w-full max-w-md border-none shadow-2xl">
+        <CardHeader className="space-y-4 text-center pb-8">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+            <Headset className="h-6 w-6 text-primary" />
+          </div>
+          <div className="space-y-2">
+            <CardTitle className="text-3xl font-bold tracking-tight">Create your CallAgent account</CardTitle>
+            <CardDescription className="text-base">
+              Get started with professional AI voice agents
+            </CardDescription>
+          </div>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="you@example.com"
+                placeholder="name@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                className="h-11"
               />
             </div>
             <div className="space-y-2">
@@ -82,11 +91,12 @@ export default function SignupPage() {
               <Input
                 id="password"
                 type="password"
-                placeholder="At least 8 characters"
+                placeholder="Minimum 8 characters"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={8}
+                className="h-11"
               />
             </div>
             <div className="space-y-2">
@@ -99,18 +109,19 @@ export default function SignupPage() {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
                 minLength={8}
+                className="h-11"
               />
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button type="submit" className="w-full h-11 text-base font-semibold" disabled={loading}>
               {loading ? "Creating account..." : "Create account"}
             </Button>
           </form>
-          <p className="mt-4 text-center text-sm text-muted-foreground">
+          <div className="mt-8 text-center text-sm text-muted-foreground">
             Already have an account?{" "}
-            <Link href="/auth/login" className="text-primary underline-offset-4 hover:underline">
+            <Link href="/auth/login" className="font-semibold text-primary underline-offset-4 hover:underline">
               Sign in
             </Link>
-          </p>
+          </div>
         </CardContent>
       </Card>
     </div>
