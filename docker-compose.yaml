@@ -124,6 +124,9 @@ services:
 
   api:
     image: ${REGISTRY:-callagentai}/callagent-api:latest
+    build:
+      context: .
+      dockerfile: api/Dockerfile
     volumes:
       - shared-tmp:/tmp
     environment:
@@ -206,6 +209,9 @@ services:
 
   ui:
     image: ${REGISTRY:-callagentai}/callagent-ui:latest
+    build:
+      context: .
+      dockerfile: ui/Dockerfile
     environment:
       # Server-side URL (SSR, internal Docker network)
       BACKEND_URL: "${BACKEND_URL:-http://api:8000}"
