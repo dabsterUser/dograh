@@ -46,7 +46,7 @@ class ToolParameter(BaseModel):
 
 
 class PresetToolParameter(BaseModel):
-    """A parameter injected by Dograh at runtime."""
+    """A parameter injected by CallAgent at runtime."""
 
     name: str = Field(description="Parameter name (used as key in request body)")
     type: str = Field(description="Parameter type: string, number, or boolean")
@@ -75,7 +75,7 @@ class HttpApiConfig(BaseModel):
     )
     preset_parameters: Optional[List[PresetToolParameter]] = Field(
         default=None,
-        description="Parameters injected by Dograh from fixed values or workflow context templates",
+        description="Parameters injected by CallAgent from fixed values or workflow context templates",
     )
     timeout_ms: Optional[int] = Field(
         default=5000, description="Request timeout in milliseconds"

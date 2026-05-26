@@ -5,11 +5,11 @@ from unittest.mock import AsyncMock
 import pytest
 from pipecat.processors.aggregators.llm_context import LLMContext
 
-from api.services.pipecat.realtime.gemini_live import DograhGeminiLiveLLMService
+from api.services.pipecat.realtime.gemini_live import CallAgentGeminiLiveLLMService
 
 
-class _TestDograhGeminiLiveLLMService(DograhGeminiLiveLLMService):
-    """Dograh Gemini service with client creation stubbed for unit tests."""
+class _TestCallAgentGeminiLiveLLMService(CallAgentGeminiLiveLLMService):
+    """CallAgent Gemini service with client creation stubbed for unit tests."""
 
     def create_client(self):
         self._client = SimpleNamespace(
@@ -24,8 +24,8 @@ class _FakeSession:
         self.close = AsyncMock()
 
 
-def _make_service() -> _TestDograhGeminiLiveLLMService:
-    service = _TestDograhGeminiLiveLLMService(api_key="test-key")
+def _make_service() -> _TestCallAgentGeminiLiveLLMService:
+    service = _TestCallAgentGeminiLiveLLMService(api_key="test-key")
     service.stop_all_metrics = AsyncMock()
     service.start_ttfb_metrics = AsyncMock()
     service.cancel_task = AsyncMock()

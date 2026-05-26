@@ -107,7 +107,7 @@ async def initiate_call(
             detail="telephony_not_configured",
         )
 
-    # Check Dograh quota before initiating the call (apply per-workflow
+    # Check CallAgent quota before initiating the call (apply per-workflow
     # model_overrides so the keys we will actually use are the ones checked).
     quota_result = await check_dograh_quota(user, workflow_id=request.workflow_id)
     if not quota_result.has_quota:

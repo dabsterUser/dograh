@@ -266,7 +266,7 @@ class DograhLLMService(BaseLLMConfiguration):
     provider: Literal[ServiceProviders.DOGRAH] = ServiceProviders.DOGRAH
     model: str = Field(
         default="default",
-        description="Dograh-hosted model tier.",
+        description="CallAgent-hosted model tier.",
         json_schema_extra={"examples": DOGRAH_LLM_MODELS, "allow_custom_input": True},
     )
 
@@ -583,7 +583,7 @@ class DograhTTSService(BaseTTSConfiguration):
     provider: Literal[ServiceProviders.DOGRAH] = ServiceProviders.DOGRAH
     model: str = Field(
         default="default",
-        description="Dograh TTS tier.",
+        description="CallAgent TTS tier.",
         json_schema_extra={"examples": DOGRAH_TTS_MODELS},
     )
     voice: str = Field(
@@ -934,7 +934,7 @@ class OpenAISTTConfiguration(BaseSTTConfiguration):
     )
 
 
-# Dograh STT Service
+# CallAgent STT Service
 DOGRAH_STT_MODELS = ["default"]
 DOGRAH_STT_LANGUAGES = DEEPGRAM_LANGUAGES
 
@@ -944,7 +944,7 @@ class DograhSTTService(BaseSTTConfiguration):
     provider: Literal[ServiceProviders.DOGRAH] = ServiceProviders.DOGRAH
     model: str = Field(
         default="default",
-        description="Dograh STT tier.",
+        description="CallAgent STT tier.",
         json_schema_extra={"examples": DOGRAH_STT_MODELS},
     )
     language: str = Field(

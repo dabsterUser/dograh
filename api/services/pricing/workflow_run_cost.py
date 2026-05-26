@@ -57,11 +57,11 @@ async def _update_organization_usage(
     )
     if charge_usd is not None:
         logger.info(
-            f"Updated organization usage with ${charge_usd:.2f} USD ({dograh_tokens} Dograh Tokens) and {duration_seconds}s duration for org {org_id}"
+            f"Updated organization usage with ${charge_usd:.2f} USD ({dograh_tokens} CallAgent Tokens) and {duration_seconds}s duration for org {org_id}"
         )
     else:
         logger.info(
-            f"Updated organization usage with {dograh_tokens} Dograh Tokens and {duration_seconds}s duration for org {org_id}"
+            f"Updated organization usage with {dograh_tokens} CallAgent Tokens and {duration_seconds}s duration for org {org_id}"
         )
 
 
@@ -223,7 +223,7 @@ async def calculate_workflow_run_cost(workflow_run_id: int):
             # Don't fail the whole cost calculation if usage update fails
 
         logger.info(
-            f"Calculated cost for workflow run: ${cost_info['total_cost_usd']:.6f} USD ({cost_info['dograh_token_usage']} Dograh Tokens)"
+            f"Calculated cost for workflow run: ${cost_info['total_cost_usd']:.6f} USD ({cost_info['dograh_token_usage']} CallAgent Tokens)"
         )
     except Exception as e:
         logger.error(f"Error calculating cost for workflow run: {e}")
