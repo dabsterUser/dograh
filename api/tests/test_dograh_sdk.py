@@ -23,7 +23,7 @@ from api.services.workflow.node_specs import all_specs, get_spec
 
 
 class _StubClient:
-    """Stand-in for DograhClient backed by the in-process spec registry.
+    """Stand-in for CallAgentClient backed by the in-process spec registry.
     Matches the real client's contract: `get_node_type(name)` returns a
     `NodeSpec` Pydantic model."""
 

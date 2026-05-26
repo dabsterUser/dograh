@@ -36,10 +36,10 @@ def fake_docs_root(tmp_path: Path) -> Path:
     (docs_root / "getting-started" / "index.mdx").write_text(
         "---\n"
         'title: "Getting started"\n'
-        'description: "Start using Dograh."\n'
+        'description: "Start using CallAgent."\n'
         "---\n\n"
         "# Getting started\n\n"
-        "Welcome to Dograh.\n",
+        "Welcome to CallAgent.\n",
         encoding="utf-8",
     )
 
@@ -74,14 +74,14 @@ def fake_docs_root(tmp_path: Path) -> Path:
     (docs_root / "deployment" / "docker.mdx").write_text(
         "---\n"
         'title: "Docker"\n'
-        'description: "Deploy Dograh with Docker."\n'
+        'description: "Deploy CallAgent with Docker."\n'
         'llm_hint: "Use for Docker deployment, local setup, remote setup, TURN server, coturn, or WebRTC connectivity questions."\n'
         "aliases:\n"
         '  - "coturn"\n'
         '  - "turn server"\n'
         "---\n\n"
         "# Docker\n\n"
-        "Run Dograh with Docker.\n\n"
+        "Run CallAgent with Docker.\n\n"
         "## Troubleshooting WebRTC Connectivity\n\n"
         "If audio fails or ICE fails, configure a TURN server. Coturn is the recommended choice.\n",
         encoding="utf-8",
@@ -197,7 +197,7 @@ def test_score_page_uses_llm_hint_and_aliases():
         path="deployment/docker",
         file_path="deployment/docker.mdx",
         title="Docker",
-        description="Deploy Dograh with Docker.",
+        description="Deploy CallAgent with Docker.",
         llm_hint="Use for TURN server and coturn setup.",
         aliases=("coturn",),
         breadcrumb=("Developer", "Deployment"),
@@ -287,7 +287,7 @@ async def test_search_docs_rejects_query_with_only_stopwords(
 @pytest.mark.asyncio
 async def test_search_docs_rejects_zero_limit(fake_docs_root, authed_user):
     with pytest.raises(ValueError, match="at least 1"):
-        await search_docs("Dograh", limit=0)
+        await search_docs("CallAgent", limit=0)
 
 
 @pytest.mark.asyncio
@@ -333,7 +333,7 @@ async def test_read_doc_can_target_section(fake_docs_root, authed_user):
     )
     assert result["section_slug"] == "troubleshooting-webrtc-connectivity"
     assert "ICE fails" in result["content"] or "TURN server" in result["content"]
-    assert "Run Dograh with Docker." not in result["content"]
+    assert "Run CallAgent with Docker." not in result["content"]
 
 
 @pytest.mark.asyncio

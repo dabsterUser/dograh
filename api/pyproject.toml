@@ -1,5 +1,5 @@
 [project]
 name = "dograh-api"
 version = "1.31.0"
-description = "Backend API for Dograh voice AI platform"
+description = "Backend API for CallAgent voice AI platform"
 requires-python = ">=3.12"

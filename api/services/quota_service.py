@@ -1,4 +1,4 @@
-"""Quota checking service for Dograh credits.
+"""Quota checking service for CallAgent credits.
 
 This module provides reusable quota checking functionality that can be used
 across different endpoints (WebRTC signaling, telephony, public API triggers).
@@ -27,9 +27,9 @@ class QuotaCheckResult:
 async def check_dograh_quota(
     user: UserModel, workflow_id: int | None = None
 ) -> QuotaCheckResult:
-    """Check if user has sufficient Dograh quota for making a call.
+    """Check if user has sufficient CallAgent quota for making a call.
 
-    This function checks if the user is using any Dograh services (LLM, STT, TTS)
+    This function checks if the user is using any CallAgent services (LLM, STT, TTS)
     and validates that they have sufficient credits remaining.
 
     When ``workflow_id`` is provided, the workflow's per-workflow
@@ -44,7 +44,7 @@ async def check_dograh_quota(
 
     Returns:
         QuotaCheckResult with has_quota=True if user has sufficient quota or
-        is not using Dograh services, or has_quota=False with error_message
+        is not using CallAgent services, or has_quota=False with error_message
         if quota is insufficient.
     """
     try:
@@ -60,7 +60,7 @@ async def check_dograh_quota(
                 if model_overrides:
                     user_config = resolve_effective_config(user_config, model_overrides)
 
-        # Check if user is using any Dograh service
+        # Check if user is using any CallAgent service
         using_dograh = False
         dograh_api_keys = set()
 
@@ -76,11 +76,11 @@ async def check_dograh_quota(
             using_dograh = True
             dograh_api_keys.add(user_config.tts.api_key)
 
-        # If not using Dograh, quota check passes
+        # If not using CallAgent, quota check passes
         if not using_dograh:
             return QuotaCheckResult(has_quota=True)
 
-        # Check quota for ALL Dograh keys
+        # Check quota for ALL CallAgent keys
         for api_key in dograh_api_keys:
             try:
                 usage = await mps_service_key_client.check_service_key_usage(
@@ -91,7 +91,7 @@ async def check_dograh_quota(
                 # Require at least $0.10 for a short call
                 if remaining < 0.10:
                     logger.warning(
-                        f"Insufficient Dograh credits for key ...{api_key[-8:]}: "
+                        f"Insufficient CallAgent credits for key ...{api_key[-8:]}: "
                         f"${remaining:.2f} remaining"
                     )
                     return QuotaCheckResult(
@@ -99,17 +99,17 @@ async def check_dograh_quota(
                         error_code="quota_exceeded",
                         error_message=(
                             "You have exhausted your trial credits. "
-                            "Please email founders@dograh.com for additional Dograh credits "
+                            "Please email founders@callagent.ai for additional CallAgent credits "
                             "or change providers in Models configurations."
                         ),
                     )
 
                 logger.info(
-                    f"Dograh quota check passed for key ...{api_key[-8:]}: "
+                    f"CallAgent quota check passed for key ...{api_key[-8:]}: "
                     f"{remaining:.2f} credits remaining"
                 )
             except Exception as e:
-                logger.error(f"Failed to check quota for Dograh key: {str(e)}")
+                logger.error(f"Failed to check quota for CallAgent key: {str(e)}")
                 error_str = str(e)
                 if "404" in error_str or "not found" in error_str.lower():
                     return QuotaCheckResult(
@@ -120,7 +120,7 @@ async def check_dograh_quota(
                 return QuotaCheckResult(
                     has_quota=False,
                     error_code="quota_check_failed",
-                    error_message="Could not verify Dograh credits. Please try again.",
+                    error_message="Could not verify CallAgent credits. Please try again.",
                 )
 
         return QuotaCheckResult(has_quota=True)
@@ -134,7 +134,7 @@ async def check_dograh_quota(
 async def check_dograh_quota_by_user_id(
     user_id: int, workflow_id: int | None = None
 ) -> QuotaCheckResult:
-    """Check Dograh quota by user ID.
+    """Check CallAgent quota by user ID.
 
     Convenience function that fetches the user and then checks quota. When
     ``workflow_id`` is provided, the workflow's ``model_overrides`` are

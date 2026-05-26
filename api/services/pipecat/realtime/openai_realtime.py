@@ -1,6 +1,6 @@
-"""Dograh subclass of pipecat's OpenAI Realtime LLM service.
+"""CallAgent subclass of pipecat's OpenAI Realtime LLM service.
 
-Layers Dograh engine integration quirks onto upstream-pristine
+Layers CallAgent engine integration quirks onto upstream-pristine
 :class:`OpenAIRealtimeLLMService`. Substantially smaller than the Gemini
 subclass because OpenAI Realtime supports runtime ``session.update`` for
 both ``system_instruction`` and tools — no reconnect/defer-tool-call
@@ -12,7 +12,7 @@ Adds:
 - **TTSSpeakFrame as initial-response trigger** so the engine's greeting
   flow kicks off the bot's first response.
 - **One-off LLMMessagesAppendFrame handling** for ephemeral realtime prompts
-  like user-idle checks, without mutating Dograh's local ``LLMContext``.
+  like user-idle checks, without mutating CallAgent's local ``LLMContext``.
 - **finalized=True on TranscriptionFrame** for parity with the Gemini
   service (every OpenAI transcription via the ``completed`` event is
   final by construction).
@@ -44,17 +44,17 @@ from pipecat.utils.time import time_now_iso8601
 
 
 class DograhOpenAIRealtimeLLMService(OpenAIRealtimeLLMService):
-    """OpenAI Realtime with Dograh engine integration quirks. See module docstring."""
+    """OpenAI Realtime with CallAgent engine integration quirks. See module docstring."""
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self._user_is_muted: bool = False
-        # Dograh pre-populates self._context via the engine before the first
+        # CallAgent pre-populates self._context via the engine before the first
         # LLMContextFrame arrives, so upstream's "first arrival means
         # self._context is None" check no longer works.
         self._handled_initial_context: bool = False
         # Track bot speech locally so tool calls can be deferred until the bot
-        # has finished speaking, matching Dograh's Gemini Live behavior.
+        # has finished speaking, matching CallAgent's Gemini Live behavior.
         self._bot_is_speaking: bool = False
         self._deferred_function_calls: list[FunctionCallFromLLM] = []
 
@@ -76,7 +76,7 @@ class DograhOpenAIRealtimeLLMService(OpenAIRealtimeLLMService):
             # setup. OpenAI Realtime renders its own audio, so we don't pass
             # the frame to TTS. Route through _handle_context so the initial
             # response and later tool-result turns share the same context
-            # lifecycle even when Dograh has already pre-populated self._context.
+            # lifecycle even when CallAgent has already pre-populated self._context.
             if not self._handled_initial_context:
                 await self._handle_context(self._context)
             else:

@@ -71,13 +71,13 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="Dograh API",
-    description="API for the Dograh app",
+    title="CallAgent API",
+    description="API for the CallAgent app",
     version="1.0.0",
     openapi_url=f"{API_PREFIX}/openapi.json",
     lifespan=lifespan,
     servers=[
-        {"url": "https://app.dograh.com", "description": "Production"},
+        {"url": "https://app.callagent.ai", "description": "Production"},
         {"url": "http://localhost:8000", "description": "Local development"},
     ],
 )

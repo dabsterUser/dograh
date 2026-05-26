@@ -548,7 +548,7 @@ class WorkflowRunTextSessionModel(Base):
 
 class OrganizationUsageCycleModel(Base):
     """
-    This model is used to track the usage of Dograh tokens for an organization for a given usage
+    This model is used to track the usage of CallAgent tokens for an organization for a given usage
     cycle.
     """
 

@@ -1,4 +1,4 @@
-"""Opt-in marker for exposing a FastAPI route through the Dograh SDK.
+"""Opt-in marker for exposing a FastAPI route through the CallAgent SDK.
 
 The generated SDK client (`sdk/python/src/dograh_sdk/_generated_client.py`
 and the TypeScript equivalent) is built by walking the backend's OpenAPI

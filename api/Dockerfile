@@ -92,7 +92,7 @@ COPY ./scripts/start_services_docker.sh ./scripts/start_services_docker.sh
 COPY --from=ts-deps /ts_validator/node_modules ./api/mcp_server/ts_validator/node_modules
 
 # Product documentation — read at runtime by the MCP docs tools
-# (search_dograh_docs / fetch_dograh_doc) so agents can learn Dograh.
+# (search_callagent_docs / fetch_callagent_doc) so agents can learn CallAgent.
 COPY ./docs ./docs
 
 ENV PYTHONPATH=/app
